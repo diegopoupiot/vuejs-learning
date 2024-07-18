@@ -1,34 +1,21 @@
 <script setup>
-import {computed, ref} from "vue";
+import {ref} from "vue";
 
-  let isBlue = ref(true)
-  let isUnderline = ref(true)
-  let color = ref('red')
-  let size = ref(20)
+  let show = ref(true)
+  let color = ref("red")
 
-  const myClass = computed(() => {
-    return {
-      blue: isBlue.value,
-      underline: isUnderline.value,
-    }
-  })
-
-  const myStyle = computed(() => {
-    return {
-      color: color.value,
-      fontSize: size.value + 'px'
-    }
-  })
+  //v-show constamment rendu en html alors que pas le v-if
 </script>
 
 <template>
   <main>
-    <button @click="isBlue = !isBlue">Toggle color</button>
-    <button @click="isUnderline = !isUnderline">Toggle underline</button>
-    <h1 :class="[myClass, { red: !isBlue}]">Titre 1</h1>
-    <h1 :style=myStyle>Titre 2</h1>
-    <h1 :class=color>Titre 3</h1>
-    <input type="text" v-model="color">
-    <input type="text" v-model="size">
+    <p v-if="show">Hello World</p>
+    <h1 v-else-if="color === 'red'">C'est du rouge</h1>
+    <h1 v-else>C'est autre chose</h1>
+    <button @click="show = !show">Toggle</button>
+    <template v-if="show">
+      <p>Je suis un paragraphe</p>
+    </template>
+    <p v-show="show" style="color: red">Je suis un autre paragraphe</p>
   </main>
 </template>
