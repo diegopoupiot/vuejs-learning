@@ -1,28 +1,39 @@
 <script setup>
 import { ref } from 'vue'
 
-let title = ref('Hello Vite + Vue 3')
-let strongMessage = "<i>IMPORTANT</i>"
+let count = ref(0)
+let tagname = ref('')
 
-function reverseTitle() {
-  title.value = title.value.split('').reverse().join('')
-  console.log('Title reversed:', title.value)
+function handleKeyup(event) {
+  if (event.code === 'Space') {
+    alert('une touche')
+  }
+}
+
+function increase(step, e) {
+  count.value += step
+  tagname.value = e.target.tagName
+}
+
+function hover(event) {
+  tagname.value = event.target.tagName
+}
+
+function stopHover(e) {
+  e.stopPropagation()
 }
 </script>
 
 <template>
   <main>
-    <h1 v-once>{{ title }}</h1>
-    <h1>{{ title }}</h1>
-    <h3>{{ title === 'Hello Vite + Vue 3' ? "ok" : "non ok" }}</h3>
-    <input type="text" v-model="title">
-    <button @click="reverseTitle">Reverse title</button>
-    <p v-once :title="title">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor
-      <span>
-        {{ title }}
-      </span>
+    <h1>{{ count }}</h1>
+    <button @click="increase(4, $event)">Increase</button>
+    <h2 @mouseover="hover">test</h2>
+    <h3 @mouseover.stop="">test</h3>
+    <p @mouseover="hover">
+      lorem ipsum dolor sit amet <br/>
+      Balise : {{ tagname }}
     </p>
-    <p v-html="strongMessage"></p>
+    <input type="text" @keyup="handleKeyup">
   </main>
 </template>
