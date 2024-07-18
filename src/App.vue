@@ -34,8 +34,10 @@ let people = ref([
 
 <template>
   <main>
-    <template v-for="myObject in people" :key="name">
-      <h1 v-for="(value, key) in myObject" :key="key">{{ key }}: {{ value }}</h1>
-    </template>
+    <ul>
+      <li v-for="n in 10">
+        n
+      </li>
+    </ul>
   </main>
 </template>
