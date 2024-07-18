@@ -1,36 +1,34 @@
 <script setup>
-import {watch, computed, ref} from 'vue'
+import {computed, ref} from "vue";
 
-let count = ref(0)
-let count2 = ref(0)
-let word = ref("Positif")
+  let isBlue = ref(true)
+  let isUnderline = ref(true)
+  let color = ref('red')
+  let size = ref(20)
 
-function wordMethod() {
-  console.log("In method.")
-  return count.value < 0 ? "Negatif" : "Positif"
-}
+  const myClass = computed(() => {
+    return {
+      blue: isBlue.value,
+      underline: isUnderline.value,
+    }
+  })
 
-// permet de créer une variable dépendante d'une autre variable
-const wordComputed = computed(() => {
-  console.log("In computed.")
-  return count.value < 0 ? "Negatif" : "Positif"
-})
-
-// watcher : dans le cas ou j'ai besoin d'un traitement asynchrone dans les computed properties
-const counter = watch(count, (newValue, oldValue) => {
-  word.value = count.value < 0 ? "Negatif" : "Positif"
-  console.log(`Count changed from ${oldValue} to ${newValue}.`)
-})
-
+  const myStyle = computed(() => {
+    return {
+      color: color.value,
+      fontSize: size.value + 'px'
+    }
+  })
 </script>
 
 <template>
   <main>
-    <button @click="count++">Increase</button>
-    <button @click="count--">Decrease</button>
-    <button @click="count2++">Increase 2</button>
-    <h1>{{ count }}</h1>
-    <h4>{{ wordMethod() }} - {{ wordComputed }} - {{ word }}</h4>
-    <h1>{{ count2 }}</h1>
+    <button @click="isBlue = !isBlue">Toggle color</button>
+    <button @click="isUnderline = !isUnderline">Toggle underline</button>
+    <h1 :class="[myClass, { red: !isBlue}]">Titre 1</h1>
+    <h1 :style=myStyle>Titre 2</h1>
+    <h1 :class=color>Titre 3</h1>
+    <input type="text" v-model="color">
+    <input type="text" v-model="size">
   </main>
 </template>
