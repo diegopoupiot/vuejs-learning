@@ -1,21 +1,41 @@
 <script setup>
 import {ref} from "vue";
 
-  let show = ref(true)
-  let color = ref("red")
+let people = ref([
+      {
+        id: 1,
+        name: "John Doe",
+        age: 30
+      },
+      {
+        id: 2,
+        name: "Jane Doe",
+        age: 25
+      },
+      {
+        id: 3,
+        name: "Jim Doe",
+        age: 40
+      },
+      {
+        id: 4,
+        name: "Jill Doe",
+        age: 35
+      },
+      {
+        id: 5,
+        name: "Jack Doe",
+        age: 20
+      }
+    ]
+);
 
-  //v-show constamment rendu en html alors que pas le v-if
 </script>
 
 <template>
   <main>
-    <p v-if="show">Hello World</p>
-    <h1 v-else-if="color === 'red'">C'est du rouge</h1>
-    <h1 v-else>C'est autre chose</h1>
-    <button @click="show = !show">Toggle</button>
-    <template v-if="show">
-      <p>Je suis un paragraphe</p>
+    <template v-for="myObject in people" :key="name">
+      <h1 v-for="(value, key) in myObject" :key="key">{{ key }}: {{ value }}</h1>
     </template>
-    <p v-show="show" style="color: red">Je suis un autre paragraphe</p>
   </main>
 </template>
